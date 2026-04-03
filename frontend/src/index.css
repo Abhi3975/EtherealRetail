@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cloud-dancer text-luxury-black font-sans antialiased selection:bg-accent-neon selection:text-luxury-black;
+  }
+  
+  /* Setting up the luxury dark mode default as requested */
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-luxury-black text-cloud-dancer;
+    }
+  }
+}
+
+@layer utilities {
+  /* This helps with the 'thumb zone' optimization to keep CTA tap targets large enough on mobile. */
+  .tap-target-safe {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Micro-animation class for buttons */
+  .bounce-on-hover {
+    @apply transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-95;
+  }
+}
+
+/* Scrollytelling basic transition classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
