@@ -20,12 +20,22 @@ const Navbar = ({ cartCount }) => {
   useEffect(() => {
     // Basic polling or simple interval to keep count updated for the demo
     const updateCount = () => {
-      const wishlist = JSON.parse(
-        localStorage.getItem("ethereal_wishlist") || "[]",
-      );
-      setWishlistCount(wishlist.length);
-      const storedUser = JSON.parse(localStorage.getItem("ethereal_user"));
-      setUser(storedUser);
+      try {
+        const wishlist = JSON.parse(
+          localStorage.getItem("ethereal_wishlist") || "[]",
+        );
+        setWishlistCount(wishlist.length);
+        
+        const rawUser = localStorage.getItem("ethereal_user");
+        if (rawUser && rawUser !== "undefined") {
+          setUser(JSON.parse(rawUser));
+        } else {
+          setUser(null);
+        }
+      } catch (e) {
+        console.error("Local storage decoding fault", e);
+        setUser(null);
+      }
     };
     updateCount();
     const interval = setInterval(updateCount, 2000);

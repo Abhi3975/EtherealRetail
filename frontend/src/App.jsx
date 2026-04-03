@@ -172,6 +172,8 @@ const AnimatedRoutes = ({ setCartCount }) => {
   );
 };
 
+import ErrorBoundary from "./components/ErrorBoundary";
+
 export default function App() {
   const [cartCount, setCartCount] = useState(0);
 
@@ -192,27 +194,28 @@ export default function App() {
 
   return (
     <Router>
-      <ScrollToTop />
-      <div className="min-h-screen bg-cloud-dancer">
-        <Navbar cartCount={cartCount} />
-        {}
-        <Suspense fallback={<PageSkeleton />}>
-          <AnimatedRoutes setCartCount={setCartCount} />
-        </Suspense>
-        <Footer />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-      </div>
+      <ErrorBoundary>
+        <ScrollToTop />
+        <div className="min-h-screen bg-cloud-dancer">
+          <Navbar cartCount={cartCount} />
+          <Suspense fallback={<PageSkeleton />}>
+            <AnimatedRoutes setCartCount={setCartCount} />
+          </Suspense>
+          <Footer />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+        </div>
+      </ErrorBoundary>
     </Router>
   );
 }
