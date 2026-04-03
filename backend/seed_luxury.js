@@ -5,11 +5,9 @@ const dotenv = require("dotenv");
 // Load backend logic directly into DB
 dotenv.config({ path: path.join(__dirname, ".env") });
 
-const MONGO_URI =
-  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ethereal_retail";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ethereal_retail";
 const Product = require("./models/Product");
 
-// We natively establish exact image sources to guarantee categorical alignment.
 const fashion_datasets = {
   mens: {
     Topwear: [
@@ -74,7 +72,6 @@ const adjectives = ["Luxe", "Essential", "Minimalist", "Sculpted", "Fluid", "Hei
 const generateUniqueProducts = () => {
   const products = [];
 
-  // Map strictly 1-to-1 to ensure categories are EXACT and duplicates are 0.
   for (const [genderKey, categoriesObj] of Object.entries(fashion_datasets)) {
     const category = genderKey === "mens" ? "Men" : genderKey === "womens" ? "Women" : "Accessories";
     let i = 0;
