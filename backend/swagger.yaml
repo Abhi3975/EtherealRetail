@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: EtherealRetail API
+  description: The backend matrix powering EtherealRetail, equipped with Cloudinary uploads, JWT auth, and complex analytics pipelines.
+  version: "1.0.0"
+servers:
+  - url: http://localhost:5000/api
+paths:
+  /products:
+    get:
+      summary: Retrieve the catalog
+      description: Highly configurable catalog fetching utilizing programmatic Mongoose pagination and Regex text search.
+      parameters:
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter by specific category like 'Jackets'
+        - in: query
+          name: sort
+          schema:
+            type: string
+          description: Sort mechanisms like 'price_asc' or 'price_desc'
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Pagination page (default 1)
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Pagination limit (default 12)
+      responses:
+        '200':
+          description: A successful response rendering products
+  /analytics/dashboard:
+    get:
+      summary: Retrieve Admin KPIs
+      description: Returns highly aggregated Mongoose backend data parsing the entire database to render fast metrics for revenue and active users.
+      responses:
+        '200':
+          description: Aggregation pipelines completed successfully.
