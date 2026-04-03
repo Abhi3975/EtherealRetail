@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ethereal_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/ethereal_retail
+      # Add JWT_SECRET and Cloudinary envs via an uncommitted .env file locally
+    depends_on:
+      - mongodb
+    networks:
+      - ethereal_net
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: ethereal_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ethereal_mongo_data:/data/db
+    networks:
+      - ethereal_net
+    restart: unless-stopped
+
+networks:
+  ethereal_net:
+    driver: bridge
+
+volumes:
+  ethereal_mongo_data:
