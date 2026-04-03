@@ -133,7 +133,11 @@ const Catalog = ({ setCartCount }) => {
   };
 
   const updateFilters = (newFilters) => {
-    setFilters({ ...newFilters, page: 1 });
+    if (typeof newFilters === "function") {
+      setFilters((prev) => ({ ...newFilters(prev), page: 1 }));
+    } else {
+      setFilters({ ...newFilters, page: 1 });
+    }
   };
 
   return (
