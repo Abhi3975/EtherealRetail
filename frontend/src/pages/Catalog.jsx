@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { FiHeart, FiPlus } from 'react-icons/fi';
@@ -11,8 +11,12 @@ const Catalog = ({ setCartCount }) => {
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [wishlist, setWishlist] = useState([]);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialCategory = searchParams.get('category') || 'All';
+
   const [filters, setFilters] = useState({
-    category: 'All',
+    category: initialCategory,
     subCategory: 'All',
     search: '',
     sort: 'newest',
@@ -21,6 +25,14 @@ const Catalog = ({ setCartCount }) => {
     isFeatured: false,
     page: 1
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('category');
+    if (cat && cat !== filters.category) {
+      setFilters(prev => ({ ...prev, category: cat, page: 1 }));
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('ethereal_wishlist') || '[]');
