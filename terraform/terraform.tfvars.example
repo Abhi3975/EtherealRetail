@@ -1,0 +1,22 @@
+# ─────────────────────────────────────────────
+# Example Terraform Variables
+# Copy this file to terraform.tfvars and fill in real values
+# ─────────────────────────────────────────────
+
+aws_region   = "ap-south-1"
+project_name = "ethereal-retail"
+
+# MongoDB Atlas connection string (free tier M0)
+mongo_uri = "mongodb+srv://<user>:<password>@<cluster>.mongodb.net/ethereal_retail?retryWrites=true&w=majority"
+
+# JWT secret for authentication
+jwt_secret = "your-strong-jwt-secret-here"
+
+# Cloudinary credentials
+cloudinary_cloud_name = "your-cloud-name"
+cloudinary_api_key    = "your-api-key"
+cloudinary_api_secret = "your-api-secret"
+
+# Docker image tags (default: latest)
+backend_image_tag  = "latest"
+frontend_image_tag = "latest"

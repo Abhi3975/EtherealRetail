@@ -77,11 +77,9 @@ app.use("/api/analytics", analyticsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-if (process.env.NODE_ENV !== "production") {
-  const LISTENING_PORT = process.env.PORT || 5000;
-  app.listen(LISTENING_PORT, () => {
-    console.log(`Backend threw itself onto port ${LISTENING_PORT}`);
-  });
-}
+const LISTENING_PORT = process.env.PORT || 5000;
+app.listen(LISTENING_PORT, () => {
+  console.log(`Backend threw itself onto port ${LISTENING_PORT}`);
+});
 
 module.exports = app;
